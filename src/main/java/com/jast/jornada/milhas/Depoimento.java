@@ -17,7 +17,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "depoimentos")
 @Entity(name= "Depoimento")
 
-public class Depoimentos {
+public class Depoimento {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -27,4 +28,10 @@ public class Depoimentos {
     private String depoimento;
     @NotBlank
     private String autor;
+
+    public Depoimento(DadosCadastro dados) {
+        this.foto = dados.foto();
+        this.depoimento = dados.depoimento();
+        this.autor = dados.autor();
+    }
 }
