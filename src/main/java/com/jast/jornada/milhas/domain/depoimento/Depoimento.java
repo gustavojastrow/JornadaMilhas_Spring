@@ -35,4 +35,16 @@ public class Depoimento {
         this.depoimento = dados.depoimento();
         this.autor = dados.autor();
     }
+
+    public void atualizarDepoimento(ListagemDepoimento dados) {
+        if (dados.foto() != null){
+            this.foto = dados.foto();
+        }
+        if (dados.depoimento() != null){
+            this.depoimento = dados.depoimento();
+        }
+        if (dados.autor() != null){
+            this.autor = dados.autor();
+        }        
+    }
 }
