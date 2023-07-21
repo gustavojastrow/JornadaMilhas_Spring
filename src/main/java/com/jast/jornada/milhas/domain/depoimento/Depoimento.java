@@ -1,6 +1,7 @@
-package com.jast.jornada.milhas;
+package com.jast.jornada.milhas.domain.depoimento;
 
 import javax.validation.constraints.NotBlank;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
