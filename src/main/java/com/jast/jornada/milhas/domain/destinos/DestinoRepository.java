@@ -10,4 +10,7 @@ public interface DestinoRepository extends JpaRepository<Destino, Long> {
 
     @Query("SELECT d from Destino d WHERE d.nome LIKE :nome%")
     List<Destino> findDestinoByNome(@Param("nome") String nome);
+
+    @Query("SELECT d from Destino d WHERE d.id = :id")
+    Destino findDestinoById(Long id);
 }

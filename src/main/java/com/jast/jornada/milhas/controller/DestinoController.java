@@ -24,6 +24,7 @@ import com.jast.jornada.milhas.domain.destinos.DadosCadastroDestino;
 import com.jast.jornada.milhas.domain.destinos.Destino;
 import com.jast.jornada.milhas.domain.destinos.DestinoRepository;
 import com.jast.jornada.milhas.domain.destinos.ListagemDestino;
+import com.jast.jornada.milhas.infra.Errors;
 
 
 @RestController
@@ -46,16 +47,20 @@ public class DestinoController {
     public ResponseEntity<Object> getDestinoByNome(@RequestParam("nome") String nome) {
         List<Destino> list = destinoRepository.findDestinoByNome(nome);
         if (list.isEmpty()) {
-            return new ResponseEntity<>(new Error("Nenhum destino foi encontrado"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new Errors("Nenhum destino foi encontrado"), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ListagemDestino> listarPorId(@PathVariable Long id){
-        var destinoId = destinoRepository.getReferenceById(id);
-        return ResponseEntity.ok(new ListagemDestino(destinoId));
+    public ResponseEntity<Object> getDestinoById(@PathVariable Long id) {
+        Destino destino = destinoRepository.findDestinoById(id);
+        if (destino == null) {
+            return new ResponseEntity<>(new Errors("Nenhum destino foi encontrado"), HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(new ListagemDestino(destino), HttpStatus.OK);
     }
+
 
     @GetMapping
     public ResponseEntity<Object> listar(@PageableDefault(size=10) Pageable paginacao){
