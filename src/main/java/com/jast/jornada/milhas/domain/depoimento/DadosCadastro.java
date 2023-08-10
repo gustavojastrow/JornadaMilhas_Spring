@@ -1,5 +1,12 @@
 package com.jast.jornada.milhas.domain.depoimento;
 
-public record DadosCadastro(String foto, String depoimento, String autor) {
-    
+import javax.validation.constraints.NotBlank;
+
+public record DadosCadastro(
+    @NotBlank
+    String foto,
+    @NotBlank
+    String depoimento, 
+    @NotBlank
+    String autor) {
 }

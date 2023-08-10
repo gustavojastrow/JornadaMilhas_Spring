@@ -24,21 +24,39 @@ public class Destino {
     @GeneratedValue
     private Long id;
     @NotBlank
-    private String foto;
+    private String url_1;
+    @NotBlank
+    private String url_2;
     @NotBlank
     private String nome;
+    @NotBlank
+    private String meta;
+    @NotBlank
+    private String texto;
     @NotBlank
     private Float preco;
 
     public Destino(DadosCadastroDestino dados) {
-        this.foto = dados.foto();
+        this.url_1 = dados.url_1();
+        this.url_2 = dados.url_2();
+        this.meta = dados.meta();
+        this.texto = dados.texto();
         this.nome = dados.nome();
         this.preco = dados.preco();
     }
 
     public void atualizarDestino(ListagemDestino dados) {
-        if (dados.foto() != null){
-            this.foto = dados.foto();
+        if (dados.url_1() != null){
+            this.url_1 = dados.url_1();
+        }
+        if (dados.url_2() != null){
+            this.url_1 = dados.url_1();
+        }
+        if (dados.meta() != null){
+            this.meta = dados.meta();
+        }
+        if (dados.texto() != null){
+            this.texto = dados.texto();
         }
         if (dados.nome() != null){
             this.nome = dados.nome();
