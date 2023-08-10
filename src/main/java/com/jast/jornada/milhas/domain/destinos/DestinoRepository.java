@@ -1,6 +1,13 @@
 package com.jast.jornada.milhas.domain.destinos;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
-public interface DestinoRepository extends JpaRepository<Destino, Long> { 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+public interface DestinoRepository extends JpaRepository<Destino, Long> {
+
+    @Query("SELECT d from Destino d WHERE d.nome LIKE :nome%")
+    List<Destino> findDestinoByNome(@Param("nome") String nome);
 }

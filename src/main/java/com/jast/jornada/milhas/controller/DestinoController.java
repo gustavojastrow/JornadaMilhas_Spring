@@ -1,10 +1,12 @@
 package com.jast.jornada.milhas.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -31,12 +34,21 @@ public class DestinoController {
 
     @Transactional
     @PostMapping
-    public ResponseEntity<Destino> cadastrarDepoimento(@RequestBody DadosCadastroDestino dados, UriComponentsBuilder uriBuilder) throws IOException{
+    public ResponseEntity<Destino> cadastrarDestino(@RequestBody DadosCadastroDestino dados, UriComponentsBuilder uriBuilder) throws IOException{
         var destino = new Destino(dados);
         destinoRepository.save(destino);
         var uri = uriBuilder.path("/depoimentos/{id}").buildAndExpand(destino.getId()).toUri();
 
         return ResponseEntity.created(uri).body(destino);
+    }
+
+    @GetMapping(params = "nome")
+    public ResponseEntity<Object> getDestinoByNome(@RequestParam("nome") String nome) {
+        List<Destino> list = destinoRepository.findDestinoByNome(nome);
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(new Error("Nenhum destino foi encontrado"), HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
