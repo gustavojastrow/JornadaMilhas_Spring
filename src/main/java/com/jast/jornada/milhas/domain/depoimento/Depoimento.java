@@ -29,12 +29,14 @@ public class Depoimento {
     private String depoimento;
     @NotBlank
     private String autor;
+    private Boolean ativo;
 
-    public Depoimento(DadosCadastro dados) {
+    public Depoimento(DadosCadastroDepoimento dados) {
         this.foto = dados.foto();
         this.depoimento = dados.depoimento();
         this.autor = dados.autor();
     }
+    
 
     public void atualizarDepoimento(ListagemDepoimento dados) {
         if (dados.foto() != null){
@@ -47,4 +49,8 @@ public class Depoimento {
             this.autor = dados.autor();
         }        
     }
+    public void excluir() {
+        this.ativo = false;
+    }
 }
+

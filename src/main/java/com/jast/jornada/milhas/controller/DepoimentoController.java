@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.jast.jornada.milhas.domain.depoimento.DadosCadastro;
+import com.jast.jornada.milhas.domain.depoimento.DadosCadastroDepoimento;
 import com.jast.jornada.milhas.domain.depoimento.Depoimento;
 import com.jast.jornada.milhas.domain.depoimento.DepoimentoRepository;
 import com.jast.jornada.milhas.domain.depoimento.ListagemDepoimento;
@@ -31,7 +31,7 @@ public class DepoimentoController {
 
     @Transactional
     @PostMapping
-    public ResponseEntity<Depoimento> cadastrarDepoimento(@RequestBody DadosCadastro dados, UriComponentsBuilder uriBuilder) throws IOException{
+    public ResponseEntity<Depoimento> cadastrarDepoimento(@RequestBody DadosCadastroDepoimento dados, UriComponentsBuilder uriBuilder) throws IOException{
         var depoimento = new Depoimento(dados);
         depoimentoRepository.save(depoimento);
         var uri = uriBuilder.path("/depoimentos/{id}").buildAndExpand(depoimento.getId()).toUri();

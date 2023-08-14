@@ -1,7 +1,8 @@
 package com.jast.jornada.milhas.controller;
 
-import java.io.IOException;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -19,12 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import com.jast.jornada.milhas.domain.destinos.DadosCadastroDestino;
 import com.jast.jornada.milhas.domain.destinos.Destino;
 import com.jast.jornada.milhas.domain.destinos.DestinoRepository;
 import com.jast.jornada.milhas.domain.destinos.ListagemDestino;
 import com.jast.jornada.milhas.infra.Errors;
+import com.jast.jornada.milhas.infra.StringValidation;
 
 
 @RestController
@@ -33,14 +34,18 @@ public class DestinoController {
     @Autowired
     private DestinoRepository destinoRepository;
 
+
     @Transactional
     @PostMapping
-    public ResponseEntity<Destino> cadastrarDestino(@RequestBody DadosCadastroDestino dados, UriComponentsBuilder uriBuilder) throws IOException{
-        var destino = new Destino(dados);
-        destinoRepository.save(destino);
-        var uri = uriBuilder.path("/depoimentos/{id}").buildAndExpand(destino.getId()).toUri();
+    public ResponseEntity<Object> cadastrarDestino(@RequestBody @Valid DadosCadastroDestino dados, UriComponentsBuilder uriComponentsBuilder)
+    {
+        Destino destino = new Destino(dados);
 
-        return ResponseEntity.created(uri).body(destino);
+        if(StringValidation.isNullEmptyOrBlank(dados.texto()))
+            destino.gerarDescricao();
+
+        destinoRepository.save(destino);
+        return ResponseEntity.created(uriComponentsBuilder.path("/destinos/created/{id}").buildAndExpand(destino.getId()).toUri()).body(new ListagemDestino(destino));
     }
 
     @GetMapping(params = "nome")

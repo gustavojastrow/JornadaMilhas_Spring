@@ -2,6 +2,8 @@ package com.jast.jornada.milhas.domain.destinos;
 
 import javax.validation.constraints.NotBlank;
 
+import com.jast.jornada.chat.ChatGpt;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -65,4 +67,10 @@ public class Destino {
             this.preco = dados.preco();
         }        
     }
+
+    public void gerarDescricao()
+    {
+        texto = ChatGpt.generateAIText("Faça um resumo sobre " + nome + " enfatizando o porque este lugar é incrível. Utilize uma linguagem informal e até 100 caracteres no máximo em cada parágrafo. Crie 2 parágrafos neste resumo.");
+    }
+
 }
