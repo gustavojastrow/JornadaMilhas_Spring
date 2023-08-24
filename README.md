@@ -1,6 +1,3 @@
-# JornadaMilhas_Spring
-API Spring de um site de viagens + integração com CHAT GPT
-
 
 <div align="center">
   
