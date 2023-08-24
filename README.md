@@ -45,12 +45,10 @@ API in development to the [7th Back-end Challenge](https://www.alura.com.br/chal
     - [x] **Testimonial CRUD** Create `/depoimentos` endpoint to perform CRUD operations. 
     - [x] **Random Testimonials**: Create `depoimentos-home` endpoint to show 3 random testimonials
     - [x] **CORS** Enable CORS request from any origin on the development phase.
-    - [x] **Test** Verify the status code of GET, POST, PUT, DELETE of `/depoimentos` endpoint 
-
+          
 - **<font color="green">Second Week</font>**
     - [x] **Destination CRUD** Create `/destinos` endpoint to perform CRUD operations.
     - [x] **Search Destination** by name.
-    - [x] **Test** `destinos` endpoint
 
 - **Third and Fourth Week**
     - [x] **Update `destinos` endpoint** with the fields
@@ -67,7 +65,6 @@ API in development to the [7th Back-end Challenge](https://www.alura.com.br/chal
         - Meta
         - Description text
     - [x] **AI integration** to generate description about destination, in case of some destination has no description
-    - [x] **Test** `destinos` endpoint
 
 ## :rocket: Running locally
 
